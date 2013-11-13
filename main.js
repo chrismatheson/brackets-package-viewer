@@ -14,8 +14,8 @@ define(function (require, exports, module) {
     var ExtensionUtils = brackets.getModule("utils/ExtensionUtils");
     //var NativeApp = brackets.getModule("utils/NativeApp");
     //var Commands = brackets.getModule("command/Commands");
-//    var ProjectManager = brackets.getModule("project/ProjectManager");
-//    var DocumentManager = brackets.getModule("document/DocumentManager");
+    //var ProjectManager = brackets.getModule("project/ProjectManager");
+    //var DocumentManager = brackets.getModule("document/DocumentManager");
 
     //TODO later - register quickdocs handler to open panel
     //EditorManager.registerInlineDocsProvider()
