@@ -4,7 +4,7 @@ define(function (require, exports, module) {
     "use strict";
 
     function getCustomViewHolder() {
-        $('<div id="package-viewer">Hello from package viewer</div>');
+        return $('<div id="package-viewer">Hello from package viewer</div>');
     }
 
     /**

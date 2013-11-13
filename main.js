@@ -24,14 +24,14 @@ define(function (require, exports, module) {
     var $toolbarButton = $('<a id="package-viewer"></a>');
     $toolbarButton.css('background-image', 'url("' + require.toUrl('./package-viewer.png') + '")');
 
-    var viewPath = require.toUrl('./packageViewer.js');
-//    var viewProvider = require('./packageViewer.js');
+//    var viewPath = require.toUrl('./packageViewer.js');
+    var viewProvider = require('./packageViewer');
 
     function handleToolbarClick() {
-        if (EditorManager.showingCustomViewerForPath(viewPath)) {
-//            EditorManager.closeCustomViewer();
+        if (EditorManager.showingCustomViewerForPath('package-viewer')) {
+            EditorManager.closeCustomViewer();
         } else {
-//            EditorManager.showCustomViewer(viewProvider, viewPath);
+            EditorManager.showCustomViewer(viewProvider, 'package-viewer');
         }
     }
     $toolbarButton.click(handleToolbarClick);
