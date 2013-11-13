@@ -23,6 +23,7 @@ define(function (require, exports, module) {
      * traverse up project hierachy, starting at fullPath, building our view model
      */
     function render(fullPath) {
+        // use github for rendering markdown - http://developer.github.com/v3/markdown/
         console.log('render called');
     }
 
