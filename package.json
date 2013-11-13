@@ -1,0 +1,16 @@
+{
+    "name": "com.chrismatheson.package.view",
+    "title": "brackets-package-view",
+    "description": "When a package.json or bower.json file is selected, provide a nicer way to edit & see its contents",
+    "homepage": "",
+    "version": "1.0.0",
+    "author": "chris matheson @chrismatheson",
+    "license": "MIT",
+    "engines": {
+        "brackets": ">=0.32.0"
+    },
+    "dependencies": {
+        "nothing-at-all": ">= 1.2.0",
+        "meh-meh-meh-optimist": ">= 0.1.0"
+    },
+}
