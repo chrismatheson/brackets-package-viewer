@@ -1,5 +1,5 @@
-<div>
-    <div id="package-info">
+<div class="package-viewer">
+    <div class="info">
         <p>
             <dl>
                 <dd>Title</dd>
@@ -7,11 +7,11 @@
             </dl>
             <dl>
                 <dd>Dependency list</dd>
-                <dl>{{#dependencies}}{{name}}{{/dependencies}}{{^dependencies}}None{{/dependencies}}</dl>
+                <dl>{{#dependencies}}{{.}}{{/dependencies}}{{^dependencies}}None{{/dependencies}}</dl>
             </dl>
         </p>
     </div>
-    <div id="readme-content">
+    <div class="readme-content">
         <!--will be replaced with any README text or README.md formatted by github call-->
     </div>
 </div>

@@ -12,25 +12,25 @@ define(function (require, exports, module) {
     var EditorManager  = brackets.getModule("editor/EditorManager");
     var AppInit = brackets.getModule("utils/AppInit");
     var ExtensionUtils = brackets.getModule("utils/ExtensionUtils");
-    //var NativeApp = brackets.getModule("utils/NativeApp");
-    //var Commands = brackets.getModule("command/Commands");
-    //var ProjectManager = brackets.getModule("project/ProjectManager");
+    var FileViewController = brackets.getModule("project/FileViewController");
     //var DocumentManager = brackets.getModule("document/DocumentManager");
 
-    //TODO later - register quickdocs handler to open panel
-    //EditorManager.registerInlineDocsProvider()
-
+    /**
+     * program starts here
+     */
+    var currentPathCache, $toolbarButton, viewProvider;
     /* create toolbar button to show / hide extensions pannel*/
-    var $toolbarButton = $('<a id="package-viewer"></a>');
+    $toolbarButton = $('<a id="package-viewer"></a>');
     $toolbarButton.css('background-image', 'url("' + require.toUrl('./package-viewer.png') + '")');
 
-//    var viewPath = require.toUrl('./packageViewer.js');
-    var viewProvider = require('./packageViewer');
+    viewProvider = require('./packageViewer');
 
     function handleToolbarClick() {
         if (EditorManager.showingCustomViewerForPath('package-viewer')) {
+            FileViewController.openAndSelectDocument(currentPathCache, "ProjectManager");
             EditorManager.closeCustomViewer();
         } else {
+            currentPathCache = EditorManager.getCurrentlyViewedPath();
             EditorManager.showCustomViewer(viewProvider, 'package-viewer');
         }
     }

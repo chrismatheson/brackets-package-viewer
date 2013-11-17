@@ -10,6 +10,7 @@ define(function (require, exports, module) {
     ExtensionUtils.loadFile(module, './panel.tpl.html').complete(function (data) {
         template = data.responseText;
     });
+    ExtensionUtils.loadStyleSheet(module, './panel.less');
 
     ExtensionUtils.loadFile(module, './package.json').complete(function (data) {
         pkg = JSON.parse(data.responseText);
