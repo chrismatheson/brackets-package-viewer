@@ -6,7 +6,7 @@ define(function (require, exports, module) {
     var ExtensionUtils = brackets.getModule("utils/ExtensionUtils");
     var ProjectManager = brackets.getModule("project/ProjectManager");
 
-    var template, $viewContainer;
+    var template;
 
     ExtensionUtils.loadFile(module, './panel.tpl.html').complete(function (data) {
         template = data.responseText;
@@ -17,11 +17,16 @@ define(function (require, exports, module) {
         return fileObj._name.match(/(package\.json)|(readme\.)/i);
     }
 
-    function render(fullPath, $editor) {
-        console.log('render called');
 
-        $viewContainer = $('<div id="package-viewer"/>');
-        $editor.append($viewContainer);
+    /**
+     * Create our view of all packages
+     * @param {type} fullPath path to start at
+     * @param {type} viewContainer ViewContainer (cleared on call)
+     */
+
+    function render(fullPath, $viewContainer) {
+        console.log('render called');
+        $viewContainer.children().remove();
 
         ProjectManager.getAllFiles(filterForPackages).then(function (packages) {
             ExtensionUtils.loadFile(module, './package.json').complete(function (data) {
@@ -32,11 +37,5 @@ define(function (require, exports, module) {
         // use github for rendering markdown - http://developer.github.com/v3/markdown/
     }
 
-    function cleanup() {
-        $viewContainer.remove();
-        console.log('sweeping up');
-    }
-
-    exports.onRemove = cleanup;
     exports.render = render;
 });
