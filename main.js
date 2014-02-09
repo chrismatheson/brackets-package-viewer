@@ -10,30 +10,29 @@ define(function (require, exports, module) {
     var AppInit = brackets.getModule("utils/AppInit");
     var ExtensionUtils = brackets.getModule("utils/ExtensionUtils");
     var FileViewController = brackets.getModule("project/FileViewController");
-    //var DocumentManager = brackets.getModule("document/DocumentManager");
 
     /**
      * program starts here
      */
-    var currentPathCache, $toolbarButton, viewProvider;
+    var currentPath, $toolbarButton, viewProvider;
     /* create toolbar button to show / hide extensions pannel*/
     $toolbarButton = $('<a id="package-viewer"></a>');
     $toolbarButton.css('background-image', 'url("' + require.toUrl('./package-viewer.png') + '")');
 
     viewProvider = require('./packageViewer');
 
-
     /**
      * Most basic extry point for the extension. From here we try and find the closest package.json file
      * and open it for viewing in our custom viewer
      */
     function handleToolbarClick() {
-        if (EditorManager.showingCustomViewerForPath('package-viewer')) {
-            FileViewController.openAndSelectDocument(currentPathCache, "ProjectManager");
+        currentPath = EditorManager.getCurrentlyViewedPath();
+
+        if (EditorManager.showingCustomViewerForPath(currentPath)) {
             EditorManager.closeCustomViewer();
+            FileViewController.openAndSelectDocument(currentPath, "ProjectManager");
         } else {
-            currentPathCache = EditorManager.getCurrentlyViewedPath();
-            EditorManager.showCustomViewer(viewProvider, currentPathCache);
+            EditorManager.showCustomViewer(viewProvider, currentPath);
         }
     }
     $toolbarButton.click(handleToolbarClick);
