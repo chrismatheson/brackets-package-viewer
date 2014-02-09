@@ -22,13 +22,18 @@ define(function (require, exports, module) {
 
     viewProvider = require('./packageViewer');
 
+
+    /**
+     * Most basic extry point for the extension. From here we try and find the closest package.json file
+     * and open it for viewing in our custom viewer
+     */
     function handleToolbarClick() {
         if (EditorManager.showingCustomViewerForPath('package-viewer')) {
             FileViewController.openAndSelectDocument(currentPathCache, "ProjectManager");
             EditorManager.closeCustomViewer();
         } else {
             currentPathCache = EditorManager.getCurrentlyViewedPath();
-            EditorManager.showCustomViewer(viewProvider, 'package-viewer');
+            EditorManager.showCustomViewer(viewProvider, currentPathCache);
         }
     }
     $toolbarButton.click(handleToolbarClick);

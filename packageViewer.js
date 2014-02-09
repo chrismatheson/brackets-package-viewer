@@ -4,7 +4,7 @@ define(function (require, exports, module) {
     "use strict";
 
     var ExtensionUtils = brackets.getModule("utils/ExtensionUtils");
-    var FileIndexManager = brackets.getModule("project/FileIndexManager");
+    var ProjectManager = brackets.getModule("project/ProjectManager");
 
     var template, pkgmodel = [], $viewContainer;
 
@@ -24,19 +24,17 @@ define(function (require, exports, module) {
         return $viewContainer;
     }
 
-    /**
-     * traverse up project hierachy, starting at fullPath, building our view model
-     */
+    function filterForPackages(fileObj) {
+        return fileObj._name.match(/(package\.json)|(readme\.)/i);
+    }
+
     function render(fullPath) {
-        FileIndexManager.getFilenameMatches('all', 'package.json').then(function (packages) {
-            packages.forEach(function (file) {
-                //load package.json
-                ExtensionUtils.loadFile(module, './package.json').complete(function (data) {
-                    pkgmodel.push(JSON.parse(data.responseText));
-                    $(Mustache.render(template, pkgmodel)).appendTo($viewContainer);
-                });
-                var readmePath = file._parentPath + 'README.md';
+        ProjectManager.getAllFiles(filterForPackages).then(function (packages) {
+            ExtensionUtils.loadFile(module, './package.json').complete(function (data) {
+                pkgmodel.push(JSON.parse(data.responseText));
+                $(Mustache.render(template, pkgmodel)).appendTo($viewContainer);
             });
+//            var readmePath = file._parentPath + 'README.md';
         });
 
         // use github for rendering markdown - http://developer.github.com/v3/markdown/
