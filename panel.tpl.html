@@ -1,17 +1,17 @@
 <div class="package-viewer">
     <div class="info">
-        <p>
-            <dl>
-                <dd>Title</dd>
-                <dl>{{title}}</dl>
-            </dl>
-            <dl>
-                <dd>Dependency list</dd>
-                <dl>{{#dependencies}}{{.}}{{/dependencies}}{{^dependencies}}None{{/dependencies}}</dl>
-            </dl>
-        </p>
+        <h1><a href="{{homepage}}">{{title}}</a> - </h1><h2>{{version}}</h2>
+        <p>{{description}}</p>
+        <h3>Dependency list</h3>
+        <ul>
+            {{#dependencies}}
+            <li>{{.}}</li>
+            {{/dependencies}}
+            {{^dependencies}}None{{/dependencies}}
+        </ul>
     </div>
     <div class="readme-content">
         <!--will be replaced with any README text or README.md formatted by github call-->
     </div>
+    <hr>
 </div>
