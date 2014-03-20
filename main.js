@@ -9,14 +9,15 @@ define(function (require, exports, module) {
     var EditorManager  = brackets.getModule("editor/EditorManager");
     var AppInit = brackets.getModule("utils/AppInit");
     var ExtensionUtils = brackets.getModule("utils/ExtensionUtils");
-    var FileViewController = brackets.getModule("project/FileViewController");
-    var DocumentManager = brackets.getModule("document/DocumentManager");
     var PanelManager = brackets.getModule("view/PanelManager");
+    var ProjectManager = brackets.getModule("project/ProjectManager");
 
     /**
      * program starts here
      */
-    var currentPath, $toolbarButton, viewProvider, $panel;
+    var currentPath, $toolbarButton, viewProvider, $panel, template;
+
+
     /* create toolbar button to show / hide extensions pannel*/
     $toolbarButton = $('<a id="package-viewer"></a>');
     $toolbarButton.css('background-image', 'url("' + require.toUrl('./package-viewer.png') + '")');
@@ -27,13 +28,42 @@ define(function (require, exports, module) {
     $panel.html('<h1> Hi, Mom</h1>');
     PanelManager.createBottomPanel("package-viewer", $panel);
 
+
+    function filterForPackages(fileObj) {
+        return fileObj.name.match(/(package\.json)/i);
+    }
+
+    function loadFiles(fileList) {
+        var basePath = ProjectManager.getProjectRoot()._path;
+
+        fileList = fileList.map(function (fileObject) {
+            return fileObject._path.replace(basePath, '');
+        });
+
+        var promisedFiles = fileList.map(function (path) {
+            console.log(path);
+            return ExtensionUtils.loadFile(module, path)
+                .then(JSON.parse);
+        });
+        return $.when.apply(this, promisedFiles);
+    }
+
     /**
      * Most basic extry point for the extension. From here we try and find the closest package.json file
      * and open it for viewing in our custom viewer
      */
     function handleToolbarClick() {
         $panel.toggle();
-        viewProvider.render('', $panel);
+
+        /**
+         * find all package.json & bower.json files in this project
+         */
+        ProjectManager.getAllFiles(filterForPackages)
+            .then(loadFiles)
+            .then(function () {
+                console.log(arguments);
+            });
+
         EditorManager.resizeEditor();
     }
     $toolbarButton.click(handleToolbarClick);
@@ -41,5 +71,12 @@ define(function (require, exports, module) {
 
     AppInit.appReady(function () {
         $('#main-toolbar .buttons').append($toolbarButton);
+
+        ExtensionUtils.loadFile(module, './panel.tpl.html')
+            .complete(function (data) {
+                template = data.responseText;
+                console.log('loaded panel template');
+            });
+        ExtensionUtils.loadStyleSheet(module, './panel.less');
     });
 });

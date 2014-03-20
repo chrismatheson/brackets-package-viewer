@@ -6,16 +6,9 @@ define(function (require, exports, module) {
     var ExtensionUtils = brackets.getModule("utils/ExtensionUtils");
     var ProjectManager = brackets.getModule("project/ProjectManager");
 
-    var template;
 
-    ExtensionUtils.loadFile(module, './panel.tpl.html').complete(function (data) {
-        template = data.responseText;
-    });
-    ExtensionUtils.loadStyleSheet(module, './panel.less');
 
-    function filterForPackages(fileObj) {
-        return fileObj._name.match(/(package\.json)|(readme\.)/i);
-    }
+
 
     /**
      * Create our view of all packages

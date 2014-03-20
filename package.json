@@ -9,6 +9,7 @@
     "engines": {
         "brackets": ">=0.32.0"
     },
+    "keywords": ["brackets", "extension", "package.json", "documentation"],
     "dependencies": {
         "nothing-at-all": ">= 1.2.0",
         "meh-meh-meh-optimist": ">= 0.1.0"
