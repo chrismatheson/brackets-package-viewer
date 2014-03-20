@@ -22,8 +22,6 @@ define(function (require, exports, module) {
     $toolbarButton = $('<a id="package-viewer"></a>');
     $toolbarButton.css('background-image', 'url("' + require.toUrl('./package-viewer.png') + '")');
 
-    viewProvider = require('./packageViewer');
-
     $panel = $('<div id="package-viewer" class="bottom-panel vert-resizable top-resizer"/>');
     $panel.html('<h1> Hi, Mom</h1>');
     PanelManager.createBottomPanel("package-viewer", $panel);
