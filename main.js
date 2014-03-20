@@ -19,10 +19,10 @@ define(function (require, exports, module) {
 
 
     /* create toolbar button to show / hide extensions pannel*/
-    $toolbarButton = $('<a id="package-viewer"></a>');
+    $toolbarButton = $('<a id="package-viewer-button"></a>');
     $toolbarButton.css('background-image', 'url("' + require.toUrl('./package-viewer.png') + '")');
 
-    $panel = $('<div id="package-viewer" class="bottom-panel vert-resizable top-resizer"/>');
+    $panel = $('<div id="package-viewer" class="bottom-panel vert-resizable top-resizer" style="overflow: scroll;"/>');
     $panel.html('<h1> Hi, Mom</h1>');
     PanelManager.createBottomPanel("package-viewer", $panel);
 
@@ -60,6 +60,7 @@ define(function (require, exports, module) {
             .then(function () {
                 $panel.children().remove();
                 Array.prototype.map.call(arguments, function (pkg) {
+                    console.log('rendering: ' + pkg.name);
                     $(Mustache.render(template, pkg)).appendTo($panel);
                 });
             });
