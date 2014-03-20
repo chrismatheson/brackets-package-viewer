@@ -1,13 +1,16 @@
-<div class="package-viewer">
+<div id="pkg-{{name}}" class="package-viewer">
     <div class="info">
         <h1><a href="{{homepage}}">{{title}}</a> - </h1><h2>{{version}}</h2>
         <p>{{description}}</p>
-        <h3>Dependency list</h3>
-        <ul>
-            {{#dependencies}}
+        <h3>Keywords</h3>
+        <ul class="keywords">
+            {{#keywords}}
             <li>{{.}}</li>
-            {{/dependencies}}
-            {{^dependencies}}None{{/dependencies}}
+            {{/keywords}}
+        </ul>
+        <h3>Dependencies</h3>
+        <ul class="dependencies">
+            <li><a>open dep</a></li>
         </ul>
     </div>
     <div class="readme-content">

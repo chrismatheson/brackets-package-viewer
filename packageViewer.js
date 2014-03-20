@@ -1,5 +1,5 @@
 /*jslint vars: true, plusplus: true, devel: true, nomen: true, indent: 4, maxerr: 50 */
-/*global define, $, window, Mustache, brackets */
+/*global define, $, window, Mustache, brackets, _*/
 define(function (require, exports, module) {
     "use strict";
 
@@ -17,20 +17,28 @@ define(function (require, exports, module) {
         return fileObj._name.match(/(package\.json)|(readme\.)/i);
     }
 
-
     /**
      * Create our view of all packages
      * @param {type} fullPath path to start at
      * @param {type} viewContainer ViewContainer (cleared on call)
      */
-
     function render(fullPath, $viewContainer) {
         console.log('render called');
         $viewContainer.children().remove();
 
         ProjectManager.getAllFiles(filterForPackages).then(function (packages) {
             ExtensionUtils.loadFile(module, './package.json').complete(function (data) {
-                $(Mustache.render(template, JSON.parse(data.responseText))).appendTo($viewContainer);
+                var pkgObj = JSON.parse(data.responseText);
+                pkgObj.printDeps = function () {
+                    return function (text, render) {
+                        var rtnStr = "";
+                        $.each(this.dependencies, function (key, val) {
+                            rtnStr += render(text, {key: key, val: val});
+                        });
+                        return rtnStr;
+                    };
+                };
+                $(Mustache.render(template, pkgObj)).appendTo($viewContainer);
             });
         });
 
