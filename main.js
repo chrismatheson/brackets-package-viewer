@@ -41,7 +41,6 @@ define(function (require, exports, module) {
         });
 
         var promisedFiles = fileList.map(function (path) {
-            console.log(path);
             return ExtensionUtils.loadFile(module, path)
                 .then(JSON.parse);
         });
@@ -61,7 +60,10 @@ define(function (require, exports, module) {
         ProjectManager.getAllFiles(filterForPackages)
             .then(loadFiles)
             .then(function () {
-                console.log(arguments);
+                $panel.children().remove();
+                Array.prototype.map.call(arguments, function (pkg) {
+                    $(Mustache.render(template, pkg)).appendTo($panel);
+                });
             });
 
         EditorManager.resizeEditor();
