@@ -5,6 +5,6 @@
 .package h1,
 .package h2,
 .package h3,
-.package h4,{
+.package h4 {
     display: inline-block;
 }
