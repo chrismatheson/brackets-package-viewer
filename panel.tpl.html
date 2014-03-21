@@ -6,7 +6,9 @@
         <span class="label">{{.}}</span>
         {{/keywords}}
         <ul class="dependencies">
-            <li><a>open dep</a></li>
+            {{#dependencies}}
+            <li>{{name}} @ <a>{{version}}</a></li>
+            {{/dependencies}}
         </ul>
     </div>
     <div class="readme-content">

@@ -61,6 +61,13 @@ define(function (require, exports, module) {
                 $panel.children().remove();
                 Array.prototype.map.call(arguments, function (pkg) {
                     console.log('rendering: ' + pkg.name);
+                    //Dont like altering the package.json object but cant thinkg of a way round this with mustache engine
+                    var _arr = [];
+                    pkg.dependencies = pkg.dependencies || {};
+                    Object.keys(pkg.dependencies).forEach(function (k) {
+                        _arr.push({"name":k, "version":pkg.dependencies[k]});
+                    });
+                    pkg.dependencies = _arr;
                     $(Mustache.render(template, pkg)).appendTo($panel);
                 });
             });
