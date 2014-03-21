@@ -21,7 +21,7 @@ define(function (require, exports, module) {
 
     /* create toolbar button to show / hide extensions pannel*/
     $toolbarButton = $('<a id="package-viewer-button"></a>');
-    $toolbarButton.css('background-image', 'url("' + require.toUrl('./package-viewer.png') + '")');
+//    $toolbarButton.css('background-image', 'url("' + require.toUrl('./package-viewer.png') + '")');
 
     $panel = $('<div id="package-viewer" class="bottom-panel vert-resizable top-resizer"/>');
     $panel.html('<h1> Hi, Mom</h1>');
@@ -50,7 +50,7 @@ define(function (require, exports, module) {
      */
     function handleToolbarClick() {
         $panel.toggle();
-
+        $toolbarButton.toggleClass('checked');
         /**
          * find all package.json & bower.json files in this project
          */

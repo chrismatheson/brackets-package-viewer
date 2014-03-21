@@ -2,6 +2,16 @@
     overflow: scroll;
 }
 
+#package-viewer-button {
+    content: "";
+    background: url(package-grey.png);
+}
+
+#package-viewer-button.checked {
+    background: url(package-blue.png);
+}
+
+
 .package h1,
 .package h2,
 .package h3,
