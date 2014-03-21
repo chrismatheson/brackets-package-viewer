@@ -22,7 +22,7 @@ define(function (require, exports, module) {
     $toolbarButton = $('<a id="package-viewer-button"></a>');
     $toolbarButton.css('background-image', 'url("' + require.toUrl('./package-viewer.png') + '")');
 
-    $panel = $('<div id="package-viewer" class="bottom-panel vert-resizable top-resizer" style="overflow: scroll;"/>');
+    $panel = $('<div id="package-viewer" class="bottom-panel vert-resizable top-resizer"/>');
     $panel.html('<h1> Hi, Mom</h1>');
     PanelManager.createBottomPanel("package-viewer", $panel);
 
@@ -78,6 +78,6 @@ define(function (require, exports, module) {
                 template = data.responseText;
                 console.log('loaded panel template');
             });
-        ExtensionUtils.loadStyleSheet(module, './panel.less');
+        ExtensionUtils.loadStyleSheet(module, 'panel.css');
     });
 });
