@@ -8,6 +8,7 @@ define(function (require, exports, module) {
 
     var EditorManager  = brackets.getModule("editor/EditorManager");
     var AppInit = brackets.getModule("utils/AppInit");
+    var FileUtils = brackets.getModule("file/FileUtils");
     var ExtensionUtils = brackets.getModule("utils/ExtensionUtils");
     var PanelManager = brackets.getModule("view/PanelManager");
     var ProjectManager = brackets.getModule("project/ProjectManager");
@@ -32,15 +33,13 @@ define(function (require, exports, module) {
     }
 
     function loadFiles(fileList) {
-        var basePath = ProjectManager.getProjectRoot()._path;
-
-        fileList = fileList.map(function (fileObject) {
-            return fileObject._path.replace(basePath, '');
+        fileList.sort(function (a, b) {
+            if (a._path < b._path) { return 1 ;}
+            if (a._path > b._path) { return -1 ;}
+            return 0;
         });
-
-        var promisedFiles = fileList.map(function (path) {
-            return ExtensionUtils.loadFile(module, path)
-                .then(JSON.parse);
+        var promisedFiles = fileList.map(function (file) {
+            return FileUtils.readAsText(file).then(JSON.parse);
         });
         return $.when.apply(this, promisedFiles);
     }
