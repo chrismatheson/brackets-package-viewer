@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/chrismatheson/brackets-package-viewer.png?label=ready&title=Ready)](https://waffle.io/chrismatheson/brackets-package-viewer)
 #Package viewer - [Brackets](https://github.com/adobe/brackets) extension
 
 tries to build a all encompising info page for the current directory tree parents.
